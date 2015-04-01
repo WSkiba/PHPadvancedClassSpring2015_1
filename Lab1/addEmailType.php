@@ -65,7 +65,7 @@ and open the template in the editor.
         
         <?php
         
-        $stmt = $db->prepare("SELECT * FROM emailtype where active = 1");
+        $stmt = $db->prepare("SELECT * FROM emailtype");
         
         if ($stmt->execute() && $stmt->rowCount() > 0) 
         {
@@ -74,11 +74,11 @@ and open the template in the editor.
             {
                 if($value["active"] > 0)
                 {
-                    echo '<p><strong>', $value['emailtype'], '</strong></p>';
+                    echo '<p><strong>',$value['emailtype'],'</strong></p>';
                 }
                 else
                 {
-                    echo '<p>', $value['emailtype'], '</p>';
+                    echo '<p>', $value['emailtype'],'</p>';
                 }
             }
     }   else 
