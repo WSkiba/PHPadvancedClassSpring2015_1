@@ -17,15 +17,15 @@ class EmailTypeService {
     private $_Util;
     private $_DB;
     private $_Validator;
-    private $_PhoneTypeDAO;
-    private $_PhoneTypeModel;
+    private $_EmailTypeDAO;
+    private $_EmailTypeModel;
     
     public function __construct($db, $util, $validator, $emailTypeDAO, $emailtypeModel) {
         $this->_DB = $db;
         $this->_Util = $util;
         $this->_Validator = $validator;
-        $this->_PhoneTypeDAO = $emailTypeDAO;
-        $this->_PhoneTypeModel = $emailtypeModel;
+        $this->_EmailTypeDAO = $emailTypeDAO;
+        $this->_EmailTypeModel = $emailtypeModel;
     }
     
     public function saveFrom(){

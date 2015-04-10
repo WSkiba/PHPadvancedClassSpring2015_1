@@ -7,15 +7,15 @@
  */
 
 /**
- * Description of EmailTypeDOA
+ * Description of EmailTypeDAO
  *
  * @author 001288282
  */
-class EmailTypeDOA implements IDAO{
+class EmailTypeDAO implements IDAO{
     
     private $DB = null;
     
-    public function _construct(PDO $db){
+    public function __construct(PDO $db){
         $this->setDB($db);
     }
     

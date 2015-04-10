@@ -53,5 +53,7 @@ class Validator {
     public function phoneTypeIsValid($type) {
         return ( is_string($type) && preg_match("/^[a-zA-Z]+$/", $type) );
     }
-
+    public function activeIsValid($type) {
+        return ( is_string($type) && preg_match("/^[0-1]$/", $type) );
+    }
 }

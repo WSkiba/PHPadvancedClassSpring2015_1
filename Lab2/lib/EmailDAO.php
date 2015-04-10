@@ -84,15 +84,18 @@ class EmailDAO implements IDAO {
     }
     
     public function getAllRows() {
+        
+        
         $values = array();
         $db = $this->getDB();
+        var_dump($db);
         $stmt = $db->prepare("SELECT email.emailid, email.email, email.emailtypeid, emailtype.emailtype, emailtype.active as emailtypeactive, email.logged, email.lastupdated, email.active FROM email LEFT JOIN emailtype on email.emailtypeid = emailtype.emailtypeid");
         
         if ( $stmt->execute() && $stmt->rowCount() > 0 ) {
             $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
             foreach ($results as $value) {
-               $model = new PhoneModel();
+               $model = new EmailModel();
                $model->reset()->map($value);
                $values[] = $model;
             }

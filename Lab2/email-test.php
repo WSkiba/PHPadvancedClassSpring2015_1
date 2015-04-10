@@ -15,6 +15,7 @@ and open the template in the editor.
         $dbConfig = array("DB_DNS"=>'mysql:host=localhost;port=3306;dbname=PHPadvClassSpring2015',"DB_USER"=>'root',"DB_PASSWORD"=>'');
         
         $pdo = new DB($dbConfig);
+        
         $db = $pdo->getDB();
         
         $email = filter_input(INPUT_POST, 'email');
@@ -24,7 +25,7 @@ and open the template in the editor.
         $emailTypeDAO = new EmailTypeDAO($db);
         $emailDAO = new EmailDAO($db);
         
-        $emailTypes = $phoneTypeDAO->getAllRows();
+        $emailTypes = $emailTypeDAO->getAllRows();
         
         $util = new Util();
         
@@ -32,7 +33,7 @@ and open the template in the editor.
                             
                $validator = new Validator(); 
                 $errors = array();
-                if( !$validator->phoneIsValid($email) ) {
+                if( !$validator->emailIsValid($email) ) {
                     $errors[] = 'Email is invalid';
                 } 
                 
@@ -57,7 +58,7 @@ and open the template in the editor.
                     
                     $emailModel->map(filter_input_array(INPUT_POST));
                     
-                   // var_dump($phonetypeModel);
+                   
                     if ( $emailDAO->save($emailModel) ) {
                         echo 'Email Added';
                     } else {
@@ -101,6 +102,7 @@ and open the template in the editor.
                 </tr>
         <?php 
             $emails = $emailDAO->getAllRows(); 
+            var_dump($db);
             foreach ($emailss as $value) {
                 echo '<tr><td>',$value->getEmail(),'</td><td>',$value->getEmailtype(),'</td><td>',date("F j, Y g:i(s) a", strtotime($value->getLastupdated())),'</td><td>',date("F j, Y g:i(s) a", strtotime($value->getLogged())),'</td>';
                 echo  '<td>', ( $value->getActive() == 1 ? 'Yes' : 'No') ,'</td></tr>' ;
