@@ -15,7 +15,7 @@ class EmailDAO implements IDAO {
     
     private $DB = null;
     
-    public function _construct ( PDO $db ){
+    public function __construct ( PDO $db ){
         $this->setDB($db);
     }
     
@@ -59,7 +59,7 @@ class EmailDAO implements IDAO {
                           ":emailtypeid" => $model->getEmailtypeid());
         if($this->idExisit($model->getEmailid())){
             $values[":emailid"] = $model->getEmailid();
-            $stmt = $dm->prepare("UPDATE email SET email = :email, emailtypeid = :emailtypeid, active = :active, lastupdated = now(), WHERE email id = :emailid");
+            $stmt = $db->prepare("UPDATE email SET email = :email, emailtypeid = :emailtypeid, active = :active, lastupdated = now(), WHERE email id = :emailid");
         }
         else {
             $stmt = $db->prepare("INSERT INTO email SET email = :email, emailtypeid = :emailtypeid, active = :active, logged = now(), lastupdated = now()");
@@ -88,7 +88,6 @@ class EmailDAO implements IDAO {
         
         $values = array();
         $db = $this->getDB();
-        var_dump($db);
         $stmt = $db->prepare("SELECT email.emailid, email.email, email.emailtypeid, emailtype.emailtype, emailtype.active as emailtypeactive, email.logged, email.lastupdated, email.active FROM email LEFT JOIN emailtype on email.emailtypeid = emailtype.emailtypeid");
         
         if ( $stmt->execute() && $stmt->rowCount() > 0 ) {

@@ -102,8 +102,8 @@ and open the template in the editor.
                 </tr>
         <?php 
             $emails = $emailDAO->getAllRows(); 
-            var_dump($db);
-            foreach ($emailss as $value) {
+           
+            foreach ($emails as $value) {
                 echo '<tr><td>',$value->getEmail(),'</td><td>',$value->getEmailtype(),'</td><td>',date("F j, Y g:i(s) a", strtotime($value->getLastupdated())),'</td><td>',date("F j, Y g:i(s) a", strtotime($value->getLogged())),'</td>';
                 echo  '<td>', ( $value->getActive() == 1 ? 'Yes' : 'No') ,'</td></tr>' ;
             }
