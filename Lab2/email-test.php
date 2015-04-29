@@ -12,6 +12,9 @@ and open the template in the editor.
     </head>
     <body>
         <?php
+        if(isset($_POST['Delete'])){
+            
+        }
         $dbConfig = array("DB_DNS"=>'mysql:host=localhost;port=3306;dbname=PHPadvClassSpring2015',"DB_USER"=>'root',"DB_PASSWORD"=>'');
         
         $pdo = new DB($dbConfig);
@@ -105,10 +108,10 @@ and open the template in the editor.
            
             foreach ($emails as $value) {
                 echo '<tr><td>',$value->getEmail(),'</td><td>',$value->getEmailtype(),'</td><td>',date("F j, Y g:i(s) a", strtotime($value->getLastupdated())),'</td><td>',date("F j, Y g:i(s) a", strtotime($value->getLogged())),'</td>';
-                echo  '<td>', ( $value->getActive() == 1 ? 'Yes' : 'No') ,'</td></tr>' ;
+                echo  '<td>', ( $value->getActive() == 1 ? 'Yes' : 'No') ,'</td><td><a href=emailDelete.php?emailid=', $value->getEmailid(),'>Delete</a></td><td><a href=emailUpdate.php?emailid=', $value->getEmailid(),'>Update</a></td></tr>' ;
             }
 
          ?>
-            </table>
+        </table>
     </body>
 </html>

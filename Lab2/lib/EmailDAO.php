@@ -41,16 +41,25 @@ class EmailDAO implements IDAO {
     public function getById($id) {
         $model = new EmailModel();
         $db = $this->getDB();
-        $stmt = $db->prepare("SELECT email.emailid, email.email, email. emailtypedid, emailtype.emailtypeid, email.emailtype, email.active as emailtypeactive, email.logged, email.lastupdated, email.active FROM email LEFT JOIN emailtype on email.emailtypeid = emailtype.emailtypeid WHERE emailid = :emailid");
+        $stmt = $db->prepare("SELECT email.emailid, email.email, email.emailtypeid, emailtype.emailtype, emailtype.active as emailtypeactive, 
+            email.logged, email.lastupdated, email.active FROM email LEFT JOIN emailtype on email.emailtypeid = emailtype.emailtypeid WHERE emailid = :emailid");
         
-        if ( $stmt->execute(array(':emaild' => $id)) && $stmt->rowCount() > 0 ) {
+        if ( $stmt->execute(array(':emailid' => $id)) && $stmt->rowCount() > 0 ) {
             $results = $stmt->fetch(PDO::FETCH_ASSOC);
             $model->map($results);
+            
         }        
-        
         return $model;
     }
-    
+    public function displayEmailtypeSelect($emailTypes,$emailTypeid){
+        foreach ($emailTypes as $value) {
+            if ( $value->getEmailtypeid() == $emailTypeid ) {
+                echo '<option value="',$value->getEmailtypeid(),'" selected="selected">',$value->getEmailtype(),'</option>';  
+            } else {
+                echo '<option value="',$value->getEmailtypeid(),'">',$value->getEmailtype(),'</option>';
+            }
+        }
+    }
     public function save(IModel $model) {
         $db = $this->getDB();
         
@@ -59,7 +68,7 @@ class EmailDAO implements IDAO {
                           ":emailtypeid" => $model->getEmailtypeid());
         if($this->idExisit($model->getEmailid())){
             $values[":emailid"] = $model->getEmailid();
-            $stmt = $db->prepare("UPDATE email SET email = :email, emailtypeid = :emailtypeid, active = :active, lastupdated = now(), WHERE email id = :emailid");
+            $stmt = $db->prepare("UPDATE email SET email = :email, emailtypeid = :emailtypeid, active = :active, lastupdated = now() WHERE emailid = :emailid");
         }
         else {
             $stmt = $db->prepare("INSERT INTO email SET email = :email, emailtypeid = :emailtypeid, active = :active, logged = now(), lastupdated = now()");

@@ -62,7 +62,7 @@ class EmailTypeDAO implements IDAO{
             $stmt = $db->prepare("UPDATE emailtype SET emailtype = :emailtype, active = :active WHERE emailtypeid = :emailtypeid");
         }
         else{
-            $stmt = $db->prepare("INSERT INTO emailtype SET emailtype = :emailtype, active = active");
+            $stmt = $db->prepare("INSERT INTO emailtype SET emailtype = :emailtype, active = :active");
         }
         if ( $stmt->execute($values) && $stmt->rowCount() > 0 ) {
             return true;

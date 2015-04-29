@@ -82,6 +82,6 @@ class EmailTypeService {
         } else {
             echo '<p>No Data</p>';
         }
-        
     }
+    
 }
