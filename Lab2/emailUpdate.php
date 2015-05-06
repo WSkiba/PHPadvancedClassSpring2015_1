@@ -16,6 +16,7 @@ $emailTypeDao = new EmailTypeDao($db);
 if($util->isPostRequest()){
     $emailid = filter_input(INPUT_GET, 'emailid');
     $emailModel->setEmailid($emailid);
+    
     $emailEntered = filter_input(INPUT_POST,'email');
     $emailModel->setEmail($emailEntered);
     

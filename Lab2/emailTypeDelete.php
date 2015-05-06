@@ -1,12 +1,13 @@
 <?php
     include'./bootstrap.php';
     
-    $emailid = filter_input(INPUT_GET, 'emailid');
+    $emailtypeid = filter_input(INPUT_GET, 'emailtypeid');
     $dbConfig = array("DB_DNS"=>'mysql:host=localhost;port=3306;dbname=PHPadvClassSpring2015',"DB_USER"=>'root',"DB_PASSWORD"=>'');   
     $pdo = new DB($dbConfig);
-    $emaildao = new EmailDAO($pdo->getDB());
+    $emaildao = new EmailTypeDAO($pdo->getDB());
     
-    $emaildao->delete($emailid);
-    header('Location:email-test.php');
+    $emaildao->delete($emailtypeid);
+    header('Location:emailtype-test.php');
+
 
 

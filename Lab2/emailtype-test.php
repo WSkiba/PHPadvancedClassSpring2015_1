@@ -17,6 +17,8 @@
             $util = new Util();
             $emailTypeDAO = new EmailTypeDAO($db);
             
+            $emailTypes = $emailTypeDAO->getAllRows();
+            
             if ( $util->isPostRequest() ) {
                 $validator = new Validator(); 
                 $errors = array();
@@ -56,12 +58,19 @@
              <br /><br />
             <input type="submit" value="Submit" />
         </form>
-         <?php         
+         <table border="1" cellpadding="5">
+                <tr>
+                    <th>Email</th>
+                    <th>Active</th>
+                </tr>
+        <?php 
              
-            $emailTypes = $emailTypeDAO->getAllRows();
             foreach ($emailTypes as $value) {
-                echo '<p>',$value->getEmailtype(),'</p>';
+                echo '<tr><td>',$value->getEmailtype(),'</td>';
+                echo  '<td>', ( $value->getActive() == 1 ? 'Yes' : 'No') ,'</td><td><a href=emailTypeDelete.php?emailtypeid=', $value->getEmailtypeid(),'>Delete</a></td><td><a href=emailTypeUpdate.php?emailtypeid=', $value->getEmailtypeid(),'>Update</a></td></tr>' ;
             }
+
          ?>
+        </table>
     </body>
 </html>
